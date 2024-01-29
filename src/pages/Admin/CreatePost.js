@@ -46,30 +46,36 @@ const CreatePost = () => {
     
               setPost({ ...Post, loading: true, err: [] });
     
-              axios.post("https://mondy-magic-server.onrender.com/createtrip", {
-                  master_image: imageUrl,
-                  name: Post.name,
-                  date: Date,
-                  time: Time,
-                  salary: Post.salary,
-                  description: Post.description,
-                  public_id:Post.public_id
-              },
-              {
-              headers: {
-                        token: Auth[0].token, 
+              axios.post(
+                "https://mondy-magic-server.onrender.com/createtrip",
+                {
+                    master_image: imageUrl,
+                    name: Post.name,
+                    date: Date,
+                    time: Time,
+                    salary: Post.salary,
+                    description: Post.description,
+                    admin: Auth[0].status,
+                    public_id: Post.public_id
+                },
+                {
+                    headers: {
+                        token: Auth[0].token,
+                        'Content-Type': 'application/json', // Add this line to specify content type
                     }
                 }
-              ).then(resp => {
-                  console.log(resp);
-                  navigate("/");
-                  setPost({ ...Post, loading: false, err: [] });
-
-              }).catch((errors) => {
-                  console.log(errors);
-                  setPost({ ...Post, loading: false, err: [errors.response.data.msg] });
-                  console.log([errors.response.data.msg]);
-              });
+            )
+            .then(resp => {
+                console.log(resp);
+                navigate("/");
+                setPost({ ...Post, loading: false, err: [] });
+            })
+            .catch((errors) => {
+                console.log(errors);
+                setPost({ ...Post, loading: false, err: [errors.response.data.msg] });
+                console.log([errors.response.data.msg]);
+            });
+            
           } else {
               console.error("Image upload failed or master_image is empty.");
           }
