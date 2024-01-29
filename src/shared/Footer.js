@@ -39,9 +39,9 @@ const Footer = () => {
             <div className="mb-5">
               <a href="https://www.facebook.com/mondy.rmadan?mibextid=LQQJ4d" className="pl-0 pr-3"><span className="icon-facebook"></span></a>
               <a href="https://wa.me/01009445487" className="pl-3 pr-3"><span className="icon-whatsapp"></span></a>
+              <a href="https://www.instagram.com/mondyrmadan?igsh=MTdtOWwwcTJzcjY0eA==" className="pl-3 pr-3"><span className="icon-instagram"></span></a>
             </div>
           </div>
-          
         </div>
       </div>
     </footer>
