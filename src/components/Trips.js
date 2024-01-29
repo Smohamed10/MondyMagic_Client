@@ -43,6 +43,7 @@ const Trips = (props) => {
       }
     })
       .then((resp) => {
+        console.log(resp)
         setShowModal(false);
         setBookingSuccess(true); // Set booking success to true
         setTimeout(() => setBookingSuccess(false), 5000); // Reset booking success after 5 seconds
