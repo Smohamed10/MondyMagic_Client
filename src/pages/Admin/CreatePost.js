@@ -46,7 +46,7 @@ const CreatePost = () => {
     
               setPost({ ...Post, loading: true, err: [] });
     
-              axios.post("http://localhost:4040/createtrip", {
+              axios.post("https://mondy-magic-server.onrender.com/createtrip", {
                   master_image: imageUrl,
                   name: Post.name,
                   date: Date,

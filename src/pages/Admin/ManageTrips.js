@@ -27,7 +27,7 @@ const ManageTrips = () => {
 
   useEffect(() => {
     setTrips((prevState) => ({ ...prevState, loading: true }));
-    axios.get("http://localhost:4040/gettrip",{
+    axios.get("https://mondy-magic-server.onrender.com/gettrip",{
       headers: {
         token: Auth[0].token, 
       }
@@ -50,7 +50,7 @@ const ManageTrips = () => {
 
     if (confirmed) {  
       try {
-        await axios.delete(`http://localhost:4040/deletetrip/${selectedTripId}`,{
+        await axios.delete(`https://mondy-magic-server.onrender.com/deletetrip/${selectedTripId}`,{
         headers: {
             token: Auth[0].token, 
         }

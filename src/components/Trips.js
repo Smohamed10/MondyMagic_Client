@@ -34,7 +34,7 @@ const Trips = (props) => {
   const handleConfirmBooking = () => {
     console.log(props.id);
     console.log(Auth[0].id);
-    axios.post("http://localhost:4040/booking/"+Auth[0].id,{
+    axios.post("https://mondy-magic-server.onrender.com/booking/"+Auth[0].id,{
       trip_id:props.id,
 
     },{

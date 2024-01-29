@@ -19,7 +19,7 @@ const Login = () => {
     const doLogin = (e) => {
         e.preventDefault();
         setLoginData({ ...loginData, loading: true, err: [] });
-        axios.post("http://localhost:4040/login", {
+        axios.post("https://mondy-magic-server.onrender.com/login", {
             email: loginData.email,
             password: loginData.password,
         }).then(resp => {

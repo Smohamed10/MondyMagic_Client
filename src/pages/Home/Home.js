@@ -20,7 +20,7 @@ const Home = () => {
 
   useEffect(() => {
     setTrips(prevState => ({ ...prevState, loading: true }));
-    axios.get("http://localhost:4040/gettrip/gettrip/")
+    axios.get("https://mondy-magic-server.onrender.com/gettrip/")
       .then(resp => {
         setTrips(prevState => ({ ...prevState, results: resp.data, loading: false, err: null }));
       })
