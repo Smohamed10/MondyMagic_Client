@@ -105,16 +105,12 @@ const uploadImage = async () => {
     setLoading(true);
     const data = new FormData();
     data.append("file", image);
-    data.append(
-        "upload_preset",
-        process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET
-    );
-    data.append("cloud_name", process.env.REACT_APP_CLOUDINARY_CLOUD_NAME);
-    data.append("folder", "Mondy_Magic");
+    data.append("upload_preset", "Mondy_Magic"); // Using preset directly
+    data.append("cloud_name", "dfdjpb4g9"); // Using cloud name directly
 
     try {
         const response = await fetch(
-            `https://api.cloudinary.com/v1_1/dfdjpb4g9/image/upload`,
+            `https://api.cloudinary.com/v1_1/dfdjpb4g9/image/upload`, // Using cloud name directly
             {
                 method: "POST",
                 body: data,
