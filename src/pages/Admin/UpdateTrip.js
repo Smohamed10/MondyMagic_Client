@@ -31,7 +31,6 @@ const UpdateTrip = () => {
         date: "",
         time: "",
         salary: "",
-        admin:"",
         public_id:"",
         loading: false,
         err: []
@@ -57,7 +56,6 @@ const UpdateTrip = () => {
                   time: Time,
                   salary: Post.salary,
                   description: Post.description,
-                  admin:Auth[0].status,
                   public_id:Post.public_id
 
               }

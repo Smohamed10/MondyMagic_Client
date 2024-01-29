@@ -17,7 +17,6 @@ const ManageTrips = () => {
   const [trips, setTrips] = useState({
     loading: true,
     results: [],
-    admin:"",
     err: null,
     reload: "0"
   });

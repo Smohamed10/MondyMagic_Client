@@ -13,7 +13,6 @@ const ViewBookings = () => {
     const [bookings, setBookings] = useState({
         loading: true,
         results: [],
-        admin:"",
         err: null,
         reload: "0"
       });
