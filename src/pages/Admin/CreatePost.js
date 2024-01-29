@@ -53,7 +53,6 @@ const CreatePost = () => {
                   time: Time,
                   salary: Post.salary,
                   description: Post.description,
-                  admin:Auth[0].status,
                   public_id:Post.public_id
               },
               {
