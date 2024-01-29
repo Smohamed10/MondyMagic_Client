@@ -20,7 +20,7 @@ const Register = () => {
     const Do_Register=(e) =>{
         e.preventDefault();
         setRegister({...Register,loading:true,err:[]})
-        axios.post("https://Mondy_Magic.onrender.com/register",{
+        axios.post("https://mondy_magic.onrender.com/register",{
             email: Register.email,password:Register.password,phone:Register.phone,name:Register.name,
         }).then(resp=>{
             setRegister({...Register,loading:false,err:[]})

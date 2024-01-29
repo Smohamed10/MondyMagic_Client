@@ -50,7 +50,7 @@ const ManageTrips = () => {
 
     if (confirmed) {  
       try {
-        await axios.delete(`https://Mondy_Magic.onrender.com/deletetrip/${selectedTripId}`,{
+        await axios.delete(`https://mondy_magic.onrender.com/deletetrip/${selectedTripId}`,{
         headers: {
             token: Auth[0].token, 
         }
