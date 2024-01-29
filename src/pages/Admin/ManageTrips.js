@@ -27,11 +27,7 @@ const ManageTrips = () => {
 
   useEffect(() => {
     setTrips((prevState) => ({ ...prevState, loading: true }));
-    axios.get("https://mondy-magic-server.onrender.com/gettrip",{
-      headers: {
-        token: Auth[0].token, 
-      }
-    })
+    axios.get("https://mondy-magic-server.onrender.com/gettrip")
       .then((resp) => {
         setTrips((prevState) => ({ ...prevState, results: resp.data, loading: false, err: null }));
       })
@@ -50,11 +46,7 @@ const ManageTrips = () => {
 
     if (confirmed) {  
       try {
-        await axios.delete(`https://mondy-magic-server.onrender.com/deletetrip/${selectedTripId}`,{
-        headers: {
-            token: Auth[0].token, 
-        }
-        });
+        await axios.delete(`https://mondy-magic-server.onrender.com/deletetrip/${selectedTripId}`);
         // Reload trips or update the state as needed
         setTrips((prevState) => ({ ...prevState, reload: prevState.reload + 1 }));
         navigate('/');

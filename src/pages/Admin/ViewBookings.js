@@ -22,11 +22,7 @@ const ViewBookings = () => {
 
   useEffect(() => {
     setBookings((prevState) => ({ ...prevState, loading: true }));
-    axios.get("https://mondy-magic-server.onrender.com/getusersbooking",{
-      headers: {
-        token: Auth[0].token, 
-      }
-    })
+    axios.get("https://mondy-magic-server.onrender.com/getusersbooking")
       .then((resp) => {
         setBookings((prevState) => ({ ...prevState, results: resp.data, loading: false, err: null }));
       })
@@ -45,12 +41,7 @@ const ViewBookings = () => {
 
     if (confirmed) {  
       try {
-        await axios.delete(`https://mondy-magic-server.onrender.com/deletebookingT/${selectedTripId}`,{
-            headers: {
-                token: Auth[0].token, 
-            }
-            }
-        );
+        await axios.delete(`https://mondy-magic-server.onrender.com/deletebookingT/${selectedTripId}`);
         // Reload trips or update the state as needed
         setBookings((prevState) => ({ ...prevState, reload: prevState.reload + 1 }));
       } catch (error) {

@@ -37,10 +37,6 @@ const Trips = (props) => {
     axios.post("https://mondy-magic-server.onrender.com/booking/"+Auth[0].id,{
       trip_id:props.id,
 
-    },{
-      headers:{
-        token:Auth[0].token,
-      }
     })
       .then((resp) => {
         console.log(resp)
