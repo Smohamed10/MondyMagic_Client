@@ -49,7 +49,7 @@ const UpdateTrip = () => {
     
               setPost({ ...Post, loading: true, err: [] });
     console.log(id)
-    axios.put(`https://mondy_magic.onrender.com/updatetrip/${id}`, {
+    axios.put(`http://localhost:4040/updatetrip/${id}`, {
         
         master_image: imageUrl,
                   name: Post.name,
