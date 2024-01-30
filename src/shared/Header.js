@@ -32,11 +32,11 @@ const Header = () => {
         <ul className="site-menu js-clone-nav mx-auto d-none d-lg-block">
           <li className=""><a href="/">Home</a></li>
           <li><a href="/about">About</a></li>
-          {
+          {/*
             Auth &&
               <button onClick={Logout} className='btn btn-sm btn-danger mx-2'>Logout</button>
             
-          }
+    */}
         
           {
             !Auth &&
