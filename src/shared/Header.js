@@ -62,16 +62,13 @@ const Header = () => {
       <div className="d-none d-xl-inline-block">
         <ul className="site-menu js-clone-nav ml-auto list-unstyled d-flex text-right mb-0" data-classname="social">
           <li>
-            <a href=" " className="pl-0 pr-3 text-black"><span className="icon-tripadvisor"></span></a>
+            <a href="https://www.facebook.com/mondy.rmadan?mibextid=LQQJ4d" className="pl-3 pr-3 text-black"><span className="icon-facebook"></span></a>
           </li>
           <li>
-            <a href=" " className="pl-3 pr-3 text-black"><span className="icon-twitter"></span></a>
+            <a href="https://wa.me/01009445487" className="pl-3 pr-3 text-black"><span className="icon-whatsapp"></span></a>
           </li>
           <li>
-            <a href=" " className="pl-3 pr-3 text-black"><span className="icon-facebook"></span></a>
-          </li>
-          <li>
-            <a href=" " className="pl-3 pr-3 text-black"><span className="icon-instagram"></span></a>
+            <a href="https://www.instagram.com/mondyrmadan?igsh=MTdtOWwwcTJzcjY0eA==" className="pl-3 pr-3 text-black"><span className="icon-instagram"></span></a>
           </li>
           {
             Auth &&
