@@ -5,6 +5,7 @@ import axios from'axios'
 import Alert from 'react-bootstrap/Alert';
 import { setAuthUser } from '../../Helper/Storage';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -71,6 +72,11 @@ const Register = () => {
   <Button variant="primary" type="submit">
     Register
   </Button>
+  <Link to="/Login">
+                        <Button variant="warning" type="submit" >
+                            register
+                        </Button>
+                        </Link>
 </Form>
   </div>
 </div>
