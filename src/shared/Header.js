@@ -23,7 +23,7 @@ const Header = () => {
     <div className="col-6 col-xl-2">
 
       <h1 className="mb-0"><a href='/' className="text-black h2 mb-0" style={{ cursor: 'pointer' }}>
-                Mondy<span className='Ankh'>&#9765;</span>Magic
+      Mondy<span className='Ankh' style='color: gold;'>&#9765;</span>Magic
             </a></h1>
     </div>
     <div className="col-10 col-md-8 d-none d-xl-block">
