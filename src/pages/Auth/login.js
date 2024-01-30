@@ -5,6 +5,7 @@ import axios from 'axios';
 import Alert from 'react-bootstrap/Alert';
 import { useNavigate } from 'react-router-dom';
 import { setAuthUser} from '../../Helper/Storage';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
     const [loginData, setLoginData] = useState({
@@ -56,6 +57,11 @@ const Login = () => {
                         <Button variant="primary" type="submit" onClick={doLogin}>
                             Login
                         </Button>
+                        <Link to="/register">
+                        <Button variant="warning" type="submit" >
+                            register
+                        </Button>
+                        </Link>
                     </Form>
                 </div>
             </div>
