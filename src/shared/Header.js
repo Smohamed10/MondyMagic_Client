@@ -33,6 +33,12 @@ const Header = () => {
           <li className=""><a href="/">Home</a></li>
           <li><a href="/about">About</a></li>
           {
+            Auth &&
+              <button onClick={Logout} className='btn btn-sm btn-danger mx-2'>Logout</button>
+            
+          }
+        
+          {
             !Auth &&
               <li><a href="/Login">Login</a></li>
           }
@@ -71,12 +77,7 @@ const Header = () => {
           <li>
             <a href="https://www.instagram.com/mondyrmadan?igsh=MTdtOWwwcTJzcjY0eA==" className="pl-3 pr-3 text-black"><span className="icon-instagram"></span></a>
           </li>
-          {
-            Auth &&
-              <button onClick={Logout} className='btn btn-sm btn-danger mx-2'>Logout</button>
-            
-          }
-        
+
         </ul>
       </div> 
 
