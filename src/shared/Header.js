@@ -65,7 +65,7 @@ const Header = () => {
             <a href="https://www.facebook.com/mondy.rmadan?mibextid=LQQJ4d" className="pl-3 pr-3 text-black"><span className="icon-facebook"></span></a>
           </li>
           <li>
-            <a href="https://wa.me/01009445487" className="pl-3 pr-3 text-black"><span className="icon-whatsapp"></span></a>
+            <a href="https://wa.me/+2001009445487" className="pl-3 pr-3 text-black"><span className="icon-whatsapp"></span></a>
           </li>
           <li>
             <a href="https://www.instagram.com/mondyrmadan?igsh=MTdtOWwwcTJzcjY0eA==" className="pl-3 pr-3 text-black"><span className="icon-instagram"></span></a>
