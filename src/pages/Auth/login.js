@@ -54,7 +54,7 @@ const Login = () => {
                             <Form.Label>Password</Form.Label>
                             <Form.Control type="password" required placeholder="Password" value={loginData.password} onChange={(e) => setLoginData({ ...loginData, password: e.target.value })} />
                         </Form.Group>
-                        <Button variant="primary" type="submit" onClick={doLogin}>
+                        <Button className="ml-1 mr-1" variant="primary" type="submit" onClick={doLogin}>
                             Login
                         </Button>
                         <Link to="/register">

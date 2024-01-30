@@ -69,12 +69,12 @@ const Register = () => {
     <Form.Control type="password" placeholder="Password" value={Register.password} onChange={(e)=>setRegister({...Register,password:e.target.value})} />
   </Form.Group>
 
-  <Button variant="primary" type="submit">
+  <Button className="ml-1 mr-1" variant="primary" type="submit">
     Register
   </Button>
   <Link to="/Login">
                         <Button variant="warning" type="submit" >
-                            register
+                            Login
                         </Button>
                         </Link>
 </Form>
