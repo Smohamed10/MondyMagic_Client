@@ -1,7 +1,7 @@
 import React from 'react';
 import { removeAuthUser,getAuthUser } from '../Helper/Storage';
 import { useNavigate } from 'react-router-dom';
-
+import "./ankh.css"
 
 const Header = () => {
 
