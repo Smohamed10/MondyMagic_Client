@@ -4,10 +4,7 @@ body {
   color: #4d4d4d;
   font-weight: 300;
   font-size: 1rem; }
-.Ankh
-{
-  color: gold;
-}
+
 ::-moz-selection {
   background: #000;
   color: #fff; }
@@ -254,8 +251,6 @@ h1, h2, h3, h4, h5,
     margin-bottom: 0; }
     .site-navbar .site-navigation .site-menu .active > a {
       color: #ef6c57; }
-      .site-navbar .site-navigation .site-menu .logout > a {
-        text-align: right;      }
     .site-navbar .site-navigation .site-menu a {
       text-decoration: none !important;
       display: inline-block; }

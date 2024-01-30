@@ -15,10 +15,11 @@ const Header = () => {
 
     return (
 <div>
-<header className="site-navbar md-5 " role="banner">
-<div className="container">
+<header class="site-navbar py-1" role="banner">
+
+<div class="container">
   <div className="row align-items-center">
-    
+
     <div className="col-6 col-xl-2">
 
       <h1 className="mb-0"><a href='/' className="text-black h2 mb-0" style={{ cursor: 'pointer' }}>
@@ -87,6 +88,8 @@ const Header = () => {
 </div>
 
 </header>
+
+
 </div>
     );
 };

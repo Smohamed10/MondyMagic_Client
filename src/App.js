@@ -9,7 +9,6 @@ function App() {
   return (
     <div className="site-wrap">
 
-    <div className="App">
               <div className="site-mobile-menu">
           <div className="site-mobile-menu-header">
             <div className="site-mobile-menu-close mt-3">
@@ -21,7 +20,6 @@ function App() {
     <Header/>
     <Outlet/>
     <Footer/>
-    </div>
     </div>
 
   );
