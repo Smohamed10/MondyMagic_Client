@@ -32,94 +32,100 @@ const CreatePost = () => {
     });
 
     const Do_Post = async (e) => {
-      e.preventDefault();
-    
-      try {
-          const imageUrls = await uploadImages(); // Wait for image upload to complete
-    
-          if (imageUrls.length > 0) {
-              const Date = startDate.toISOString().split('T')[0]; // Correct date format
-              const Time = value;
-    
-              setPost({ ...Post, loading: true, err: [] });
-    
-              axios.post("https://mondy-magic-server.onrender.com/createtrip", {
-                  master_image: imageUrls.join(','),
-                  name: Post.name,
-                  date: Date,
-                  time: Time,
-                  salary: Post.salary,
-                  description: Post.description,
-                  public_id: Post.public_id.join(',')
-              },
-              ).then(resp => {
-                  console.log(resp);
-                  navigate("/");
-                  setPost({ ...Post, loading: false, err: [] });
-
-              }).catch((errors) => {
-                  console.log(errors);
-                  setPost({ ...Post, loading: false, err: [errors.response.data.msg] });
-                  console.log([errors.response.data.msg]);
-              });
-          } else {
-              console.error("Image upload failed or master_image is empty.");
-          }
-      } catch (error) {
-          console.log(error);
-      }
-    };
-  
-  const handleImageChange = (event) => {
-    const files = event.target.files;
-    setImages(files);
-
-    const imagesPreview = [];
-    for (let i = 0; i < files.length; i++) {
-        const reader = new FileReader();
-        reader.readAsDataURL(files[i]);
-        reader.onload = () => {
-            imagesPreview.push(reader.result);
-            if (imagesPreview.length === files.length) {
-                setPreview(imagesPreview);
-            }
-        };
-    }
-};
-
-const uploadImages = async () => {
-    if (images.length === 0) {
-        console.error("No images to upload.");
-        return [];
-    }
-
-    setLoading(true);
-    const imageUrls = [];
-
-    for (let i = 0; i < images.length; i++) {
-        const data = new FormData();
-        data.append("file", images[i]);
-        data.append("upload_preset", "Mondy_Magic");
-        data.append("cloud_name", "dfdjpb4g9");
+        e.preventDefault();
 
         try {
-            const response = await fetch(
-                `https://api.cloudinary.com/v1_1/dfdjpb4g9/image/upload`,
-                {
-                    method: "POST",
-                    body: data,
-                }
-            );
-            const res = await response.json();
-            imageUrls.push(res.secure_url);
-        } catch (error) {
-            console.error(error);
-        }
-    }
+            const imageUrls = await uploadImages(); // Wait for image upload to complete
 
-    setLoading(false);
-    return imageUrls;
-};
+            if (imageUrls.length > 0) {
+                const Date = startDate.toISOString().split('T')[0]; // Correct date format
+                const Time = value;
+
+                setPost({ ...Post, loading: true, err: [] });
+
+                axios.post("https://mondy-magic-server.onrender.com/createtrip", {
+                    master_image: imageUrls.join(','),
+                    name: Post.name,
+                    date: Date,
+                    time: Time,
+                    salary: Post.salary,
+                    description: Post.description,
+                    public_id: Post.public_id.join(',')
+                },
+                ).then(resp => {
+                    console.log(resp);
+                    navigate("/");
+                    setPost({ ...Post, loading: false, err: [] });
+
+                }).catch((errors) => {
+                    console.log(errors);
+                    setPost({ ...Post, loading: false, err: [errors.response.data.msg] });
+                    console.log([errors.response.data.msg]);
+                });
+            } else {
+                console.error("Image upload failed or master_image is empty.");
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const handleImageChange = (event) => {
+        const files = event.target.files;
+        setImages(files);
+
+        const imagesPreview = [];
+        for (let i = 0; i < files.length; i++) {
+            const reader = new FileReader();
+            reader.readAsDataURL(files[i]);
+            reader.onload = () => {
+                imagesPreview.push(reader.result);
+                if (imagesPreview.length === files.length) {
+                    setPreview(imagesPreview);
+                }
+            };
+        }
+    };
+
+    const handleResetClick = () => {
+        setPreview(null);
+        setImages([]); // Clear the image state when resetting
+    };
+
+    const uploadImages = async () => {
+        if (images.length === 0) {
+            console.error("No images to upload.");
+            return [];
+        }
+
+        setLoading(true);
+        const imageUrls = [];
+
+        for (let i = 0; i < images.length; i++) {
+            const data = new FormData();
+            data.append("file", images[i]);
+            data.append("upload_preset", "Mondy_Magic");
+            data.append("cloud_name", "dfdjpb4g9");
+
+            try {
+                const response = await fetch(
+                    `https://api.cloudinary.com/v1_1/dfdjpb4g9/image/upload`,
+                    {
+                        method: "POST",
+                        body: data,
+                    }
+                );
+                const res = await response.json();
+                imageUrls.push(res.secure_url);
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        setLoading(false);
+        return imageUrls;
+    };
+
     return (
         <div>
             <h1>New Post</h1>
@@ -168,14 +174,14 @@ const uploadImages = async () => {
                     <div className="row form-group">
                         <div className="col-md-12">
                             <label className="text-black" htmlFor="subject">Upload Destination Photo</label>
-                            <input required id="subject" type="file" className="form-control" onChange={handleImageChange} accept="image/*" />
+                            <input required id="subject" type="file" className="form-control" onChange={handleImageChange} accept="image/*" multiple />
                             {preview && <img src={preview} alt="preview" className="img-fluid rounded" />}
                         </div>
                     </div>
 
                     <div className="row form-group">
                         <div className="col-md-12">
-                        <input disabled={!image} type="submit" value=" Post Now" className="btn btn-primary py-2 px-4 text-white" />
+                        <input disabled={!images.length} type="submit" value=" Post Now" className="btn btn-primary py-2 px-4 text-white" />
                         </div>
                     </div>
 
@@ -195,7 +201,7 @@ const uploadImages = async () => {
             <span>Loading...</span>
         </div>
     </div>
-): url && (
+): (
     <div>
         {/* Additional content when not loading */}
     </div>
@@ -209,6 +215,5 @@ const uploadImages = async () => {
         </div>
     );
 };
-
 
 export default CreatePost;
