@@ -17,7 +17,7 @@ const CreatePost = () => {
     const [loading, setLoading] = useState(false);
     const [startDate, setStartDate] = useState(new Date());
     const [value, onChange] = useState('10:00');
-    const [preview, setPreview] = useState(null); // Define preview state
+    const [preview, setPreview] = useState(null);
     const navigate = useNavigate();
 
     const [Post, setPost] = useState({
@@ -36,7 +36,7 @@ const CreatePost = () => {
         e.preventDefault();
 
         try {
-            const imageUrls = await uploadImages(); // Wait for image upload to complete
+            const { imageUrls, publicIds } = await uploadImages(); // Wait for image upload to complete
 
             if (imageUrls.length > 0) {
                 const Date = startDate.toISOString().split('T')[0]; // Correct date format
@@ -51,7 +51,7 @@ const CreatePost = () => {
                     time: Time,
                     salary: Post.salary,
                     description: Post.description,
-                    public_id: Post.public_id.join(',')
+                    public_id: publicIds.join(',')
                 },
                 ).then(resp => {
                     console.log(resp);
@@ -90,17 +90,18 @@ const CreatePost = () => {
 
     const handleResetClick = () => {
         setPreview(null);
-        setImages([]); // Clear the image state when resetting
+        setImages([]);
     };
 
     const uploadImages = async () => {
         if (images.length === 0) {
             console.error("No images to upload.");
-            return [];
+            return { imageUrls: [], publicIds: [] };
         }
 
         setLoading(true);
         const imageUrls = [];
+        const publicIds = [];
 
         for (let i = 0; i < images.length; i++) {
             const data = new FormData();
@@ -118,13 +119,14 @@ const CreatePost = () => {
                 );
                 const res = await response.json();
                 imageUrls.push(res.secure_url);
+                publicIds.push(res.public_id);
             } catch (error) {
                 console.error(error);
             }
         }
 
         setLoading(false);
-        return imageUrls;
+        return { imageUrls, publicIds };
     };
 
     return (
@@ -176,13 +178,15 @@ const CreatePost = () => {
                         <div className="col-md-12">
                             <label className="text-black" htmlFor="subject">Upload Destination Photo</label>
                             <input required id="subject" type="file" className="form-control" onChange={handleImageChange} accept="image/*" multiple />
-                            {preview && preview.map((img, index) => <img key={index} src={img} alt={`Preview ${index}`} className="img-fluid rounded" />)}
+                            {preview && preview.map((image, index) => (
+                                <img key={index} src={image} alt={`preview-${index}`} className="img-fluid rounded" />
+                            ))}
                         </div>
                     </div>
 
                     <div className="row form-group">
                         <div className="col-md-12">
-                        <input disabled={!images.length} type="submit" value=" Post Now" className="btn btn-primary py-2 px-4 text-white" />
+                            <input disabled={images.length === 0} type="submit" value="Post Now" className="btn btn-primary py-2 px-4 text-white" />
                         </div>
                     </div>
 
@@ -194,21 +198,20 @@ const CreatePost = () => {
 
                     <div className="h-screen sm:px-8 md:px-16 sm:py-8">
                         <div className="container mx-auto max-w-screen-lg h-full">
-                        <div className="loading-spinner-container">
-                        {loading ? (
-    <div className="loading-spinner-overlay">
-        <div className="loading-spinner-container">
-            <div className="loading-spinner">&#9765;</div>
-            <span>Loading...</span>
-        </div>
-    </div>
-): (
-    <div>
-        {/* Additional content when not loading */}
-    </div>
-)}
+                            <div className="loading-spinner-container">
+                                {loading ? (
+                                    <div className="loading-spinner-overlay">
+                                        <div className="loading-spinner-container">
+                                            <div className="loading-spinner">&#9765;</div>
+                                            <span>Loading...</span>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <div>
+                                        {/* Additional content when not loading */}
+                                    </div>
+                                )}
                             </div>
-
                         </div>
                     </div>
                 </form>
