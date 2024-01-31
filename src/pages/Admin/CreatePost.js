@@ -17,6 +17,7 @@ const CreatePost = () => {
     const [loading, setLoading] = useState(false);
     const [startDate, setStartDate] = useState(new Date());
     const [value, onChange] = useState('10:00');
+    const [preview, setPreview] = useState(null); // Define preview state
     const navigate = useNavigate();
 
     const [Post, setPost] = useState({
@@ -175,7 +176,7 @@ const CreatePost = () => {
                         <div className="col-md-12">
                             <label className="text-black" htmlFor="subject">Upload Destination Photo</label>
                             <input required id="subject" type="file" className="form-control" onChange={handleImageChange} accept="image/*" multiple />
-                            {preview && <img src={preview} alt="preview" className="img-fluid rounded" />}
+                            {preview && preview.map((img, index) => <img key={index} src={img} alt={`Preview ${index}`} className="img-fluid rounded" />)}
                         </div>
                     </div>
 
