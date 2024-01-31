@@ -39,9 +39,7 @@ const UpdateTrip = () => {
     
               setPost({ ...Post, loading: true, err: [] });
     console.log(id)
-    axios.put(`https://mondy-magic-server.onrender.com/updatetrip/${id}`, {
-        
-        master_image: imageUrl,
+    axios.put(`https://mondy-magic-server.onrender.com/updatetrip/${id}`, { 
                   name: Post.name,
                   date: Date,
                   time: Time,
@@ -60,22 +58,6 @@ const UpdateTrip = () => {
               });
     };
   
-  const handleImageChange = (event) => {
-    const file = event.target.files[0];
-    setImage(file);
-
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-
-    reader.onload = () => {
-        setPreview(reader.result);
-    };
-};
-
-const handleResetClick = () => {
-    setPreview(null);
-    setImage(null); // Clear the image state when resetting
-};
 
 
     return (
@@ -137,18 +119,6 @@ const handleResetClick = () => {
 
                     <div className="h-screen sm:px-8 md:px-16 sm:py-8">
                         <div className="container mx-auto max-w-screen-lg h-full">
-                        {loading ? (
-    <div className="loading-spinner-overlay">
-        <div className="loading-spinner-container">
-            <div className="loading-spinner">&#9765;</div>
-            <span>Loading...</span>
-        </div>
-    </div>
-): url && (
-    <div>
-        {/* Additional content when not loading */}
-    </div>
-)}
                         </div>
                     </div>
                 </form>
