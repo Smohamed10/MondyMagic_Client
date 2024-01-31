@@ -107,7 +107,7 @@ const UpdateTrip = () => {
 
                     <div className="row form-group">
                         <div className="col-md-12">
-                        <input disabled={!image} type="submit" value=" Update Trip Information" className="btn btn-primary py-2 px-4 text-white" />
+                        <input  type="submit" value=" Update Trip Information" className="btn btn-primary py-2 px-4 text-white" />
                         </div>
                     </div>
 
