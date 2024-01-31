@@ -3,20 +3,13 @@ import axios from 'axios';
 import Alert from 'react-bootstrap/Alert';
 import DatePicker from "react-datepicker";
 import TimePicker from 'react-time-picker';
-import 'react-time-picker/dist/TimePicker.css';
-import 'react-clock/dist/Clock.css';
 import "react-datepicker/dist/react-datepicker.css";
 import "../../Assets/css/spinner.css";
 
 import { useParams } from "react-router-dom";
-import { getAuthUser } from '../../Helper/Storage';
 import { useNavigate } from "react-router-dom";
 
-const Auth = getAuthUser();
-
 const UpdateTrip = () => {
-    const [image, setImage] = useState(null);
-    const [loading, setLoading] = useState(false);
     const [startDate, setStartDate] = useState(new Date());
     const [value, onChange] = useState('10:00');
     let {id}=useParams();
@@ -34,17 +27,18 @@ const UpdateTrip = () => {
 
     const Do_Post = async (e) => {
       e.preventDefault();
-              const Date = startDate.toISOString().split('T')[0]; // Correct date format
-              const Time = value;
+      try {
+          const Date = startDate.toISOString().split('T')[0]; // Correct date format
+          const Time = value;
     
-              setPost({ ...Post, loading: true, err: [] });
-    console.log(id)
-    axios.put(`https://mondy-magic-server.onrender.com/updatetrip/${id}`, { 
+          setPost({ ...Post, loading: true, err: [] });
+
+          axios.put(`https://mondy-magic-server.onrender.com/updatetrip/${id}`, {
                   name: Post.name,
                   date: Date,
                   time: Time,
                   salary: Post.salary,
-                  description: Post.description,
+                  description: Post.description
               }
               ).then(resp => {
                   console.log(resp);
@@ -56,10 +50,10 @@ const UpdateTrip = () => {
                   setPost({ ...Post, loading: false, err: [errors.response.data.msg] });
                   console.log([errors.response.data.msg]);
               });
+      } catch (error) {
+          console.log(error);
+      }
     };
-  
-
-
     return (
         <div>
             <h1>Update Trip</h1>
@@ -107,15 +101,10 @@ const UpdateTrip = () => {
 
                     <div className="row form-group">
                         <div className="col-md-12">
-                        <input  type="submit" value=" Update Trip Information" className="btn btn-primary py-2 px-4 text-white" />
+                            <input type="submit" value=" Update Trip Information" className="btn btn-primary py-2 px-4 text-white" />
                         </div>
                     </div>
 
-
-                    <div className="h-screen sm:px-8 md:px-16 sm:py-8">
-                        <div className="container mx-auto max-w-screen-lg h-full">
-                        </div>
-                    </div>
                 </form>
             </div>
         </div>
