@@ -111,11 +111,6 @@ const UpdateTrip = () => {
                         </div>
                     </div>
 
-                    <div className="row form-group">
-                        <div className="col-md-12">
-                            <button onClick={handleResetClick} className="btn btn-primary py-2 px-4 text-white">Reset Image</button>
-                        </div>
-                    </div>
 
                     <div className="h-screen sm:px-8 md:px-16 sm:py-8">
                         <div className="container mx-auto max-w-screen-lg h-full">
