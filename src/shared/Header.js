@@ -14,85 +14,40 @@ const Header = () => {
     }
 
     return (
-<div>
-<header class="site-navbar py-1" role="banner">
-
-<div class="container">
-  <div className="row align-items-center">
-
-    <div className="col-6 col-xl-2">
-
-      <h1 className="mb-0"><a href='/' className="text-black h2 mb-0" style={{ cursor: 'pointer' }}>
-                Mondy<span className='Ankh'>&#9765;</span>Magic
-            </a></h1>
+      <div>
+      <Navbar bg="light" expand="lg">
+        <Container>
+          <Navbar.Brand as={Link} to="/" className="text-black h2 mb-0">
+            Mondy<span className="Ankh">&#9765;</span>Magic
+          </Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="me-auto">
+              <Nav.Link as={Link} to="/">Home</Nav.Link>
+              <Nav.Link as={Link} to="/about">About</Nav.Link>
+              {!Auth && <Nav.Link as={Link} to="/login">Login</Nav.Link>}
+              {!Auth && <Nav.Link as={Link} to="/register">Register</Nav.Link>}
+              <Nav.Link as={Link} to="/contact">Contact</Nav.Link>
+              {Auth && Auth[0].status === 1 && <Nav.Link as={Link} to="/managetrips">Manage trips</Nav.Link>}
+              {Auth && Auth[0].status === 1 && <Nav.Link as={Link} to="/managebookings">Manage Bookings</Nav.Link>}
+            </Nav>
+            <Nav>
+              <Nav.Link href="https://www.facebook.com/mondy.rmadan?mibextid=LQQJ4d" className="pl-3 pr-3 text-black">
+                <span className="icon-facebook"></span>
+              </Nav.Link>
+              <Nav.Link href="https://wa.me/+2001009445487" className="pl-3 pr-3 text-black">
+                <span className="icon-whatsapp"></span>
+              </Nav.Link>
+              <Nav.Link href="https://www.instagram.com/mondyrmadan?igsh=MTdtOWwwcTJzcjY0eA==" className="pl-3 pr-3 text-black">
+                <span className="icon-instagram"></span>
+              </Nav.Link>
+              {Auth && <Nav.Link onClick={Logout} className='btn btn-sm btn-danger mx-2'>Logout</Nav.Link>}
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
     </div>
-    <div className="col-10 col-md-8 d-none d-xl-block">
-      <nav className="site-navigation position-relative text-right text-lg-center" role="navigation">
-
-        <ul className="site-menu js-clone-nav mx-auto d-none d-lg-block">
-          <li className=""><a href="/">Home</a></li>
-          <li><a href="/about">About</a></li>
-          {/*
-            Auth &&
-              <button onClick={Logout} className='btn btn-sm btn-danger mx-2'>Logout</button>
-            
-    */}
-        
-          {
-            !Auth &&
-              <li><a href="/Login">Login</a></li>
-          }
-
-          {
-            !Auth &&
-              <li><a href="/Register">Register</a></li>
-          }
-
-          <li><a href="/contact">Contact</a></li>
-
-          
-          {
-           Auth && Auth[0].status===1 && 
-          <li><a href="/managetrips">Manage trips</a></li>
-          
-          }
-          {
-           Auth && Auth[0].status===1 && 
-          <li><a href="/managebookings">Manage Bookings</a></li>
-          
-          }
-        </ul>
-      </nav>
-    </div>
-
-    <div className="col-6 col-xl-2 text-right">
-      <div className="d-none d-xl-inline-block">
-        <ul className="site-menu js-clone-nav ml-auto list-unstyled d-flex text-right mb-0" data-classname="social">
-          <li>
-            <a href="https://www.facebook.com/mondy.rmadan?mibextid=LQQJ4d" className="pl-3 pr-3 text-black"><span className="icon-facebook"></span></a>
-          </li>
-          <li>
-            <a href="https://wa.me/+2001009445487" className="pl-3 pr-3 text-black"><span className="icon-whatsapp"></span></a>
-          </li>
-          <li>
-            <a href="https://www.instagram.com/mondyrmadan?igsh=MTdtOWwwcTJzcjY0eA==" className="pl-3 pr-3 text-black"><span className="icon-instagram"></span></a>
-          </li>
-
-        </ul>
-      </div> 
-
-      <div className="d-inline-block d-xl-none ml-md-0 mr-auto py-3" style={{position: "relative", top: "3px"}}><a href=" " className="site-menu-toggle js-menu-toggle text-black"><span className="icon-menu h3"></span></a></div>
-
-    </div>
-
-  </div>
-</div>
-
-</header>
-
-
-</div>
-    );
+  );
 };
 
 export default Header;
