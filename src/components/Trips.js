@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal, Button ,Alert } from 'react-bootstrap';
+import { Modal, Button, Alert, Carousel } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { getAuthUser } from '../Helper/Storage';
 
@@ -65,7 +65,13 @@ const Trips = (props) => {
 
         <div className="row align-items-center">
           <div className="col-md-6 mb-5 mb-md-5">
-            <img src={props.master_image} text="First slide" alt="img" className="img-fluid rounded" />
+          <Carousel>
+    {props.master_image.split(',').map((image, index) => (
+      <Carousel.Item key={index}>
+        <img src={image} className="d-block w-100" alt={`Slide ${index + 1}`} />
+      </Carousel.Item>
+    ))}
+  </Carousel>
           </div>
           <div className="col-md-6 pl-md-5">
             <h1 className="font-weight-light text-black mb-4">{props.name}</h1>
