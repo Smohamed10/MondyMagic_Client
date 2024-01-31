@@ -13,22 +13,20 @@ import { useNavigate } from "react-router-dom";
 const Auth = getAuthUser();
 
 const CreatePost = () => {
-    const [image, setImage] = useState(null);
-    const [url, setUrl] = useState("");
+    const [images, setImages] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [preview, setPreview] = useState(null);
     const [startDate, setStartDate] = useState(new Date());
     const [value, onChange] = useState('10:00');
     const navigate = useNavigate();
 
     const [Post, setPost] = useState({
-        master_image: "",
+        master_image: [],
         name: "",
         description: "",
         date: "",
         time: "",
         salary: "",
-        public_id:"",
+        public_id: [],
         loading: false,
         err: []
     });
@@ -37,22 +35,22 @@ const CreatePost = () => {
       e.preventDefault();
     
       try {
-          const imageUrl = await uploadImage(); // Wait for image upload to complete
+          const imageUrls = await uploadImages(); // Wait for image upload to complete
     
-          if (imageUrl) {
+          if (imageUrls.length > 0) {
               const Date = startDate.toISOString().split('T')[0]; // Correct date format
               const Time = value;
     
               setPost({ ...Post, loading: true, err: [] });
     
               axios.post("https://mondy-magic-server.onrender.com/createtrip", {
-                  master_image: imageUrl,
+                  master_image: imageUrls.join(','),
                   name: Post.name,
                   date: Date,
                   time: Time,
                   salary: Post.salary,
                   description: Post.description,
-                  public_id:Post.public_id
+                  public_id: Post.public_id.join(',')
               },
               ).then(resp => {
                   console.log(resp);
@@ -73,54 +71,54 @@ const CreatePost = () => {
     };
   
   const handleImageChange = (event) => {
-    const file = event.target.files[0];
-    setImage(file);
+    const files = event.target.files;
+    setImages(files);
 
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-
-    reader.onload = () => {
-        setPreview(reader.result);
-    };
+    const imagesPreview = [];
+    for (let i = 0; i < files.length; i++) {
+        const reader = new FileReader();
+        reader.readAsDataURL(files[i]);
+        reader.onload = () => {
+            imagesPreview.push(reader.result);
+            if (imagesPreview.length === files.length) {
+                setPreview(imagesPreview);
+            }
+        };
+    }
 };
 
-const handleResetClick = () => {
-    setPreview(null);
-    setImage(null); // Clear the image state when resetting
-};
-
-const uploadImage = async () => {
-    if (!image) {
-        console.error("No image to upload.");
-        return;
+const uploadImages = async () => {
+    if (images.length === 0) {
+        console.error("No images to upload.");
+        return [];
     }
 
     setLoading(true);
-    const data = new FormData();
-    data.append("file", image);
-    data.append("upload_preset", "Mondy_Magic"); // Using preset directly
-    data.append("cloud_name", "dfdjpb4g9"); // Using cloud name directly
+    const imageUrls = [];
 
-    try {
-        const response = await fetch(
-            `https://api.cloudinary.com/v1_1/dfdjpb4g9/image/upload`, // Using cloud name directly
-            {
-                method: "POST",
-                body: data,
-            }
-        );
-        const res = await response.json();
-        console.log(res);
-        Post.public_id=res.public_id
-        setUrl(res.secure_url);
-        setLoading(false);
-        return res.secure_url;
-    } catch (error) {
-        setLoading(false);
-        setPost({ ...Post, loading: false, err: [error.response.data.msg] });
-        console.log(error);
-        throw error;
+    for (let i = 0; i < images.length; i++) {
+        const data = new FormData();
+        data.append("file", images[i]);
+        data.append("upload_preset", "Mondy_Magic");
+        data.append("cloud_name", "dfdjpb4g9");
+
+        try {
+            const response = await fetch(
+                `https://api.cloudinary.com/v1_1/dfdjpb4g9/image/upload`,
+                {
+                    method: "POST",
+                    body: data,
+                }
+            );
+            const res = await response.json();
+            imageUrls.push(res.secure_url);
+        } catch (error) {
+            console.error(error);
+        }
     }
+
+    setLoading(false);
+    return imageUrls;
 };
     return (
         <div>
