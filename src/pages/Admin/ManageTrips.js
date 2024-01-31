@@ -76,26 +76,28 @@ const ManageTrips = () => {
             </tr>
           </thead>
           <tbody>
+            
             {trips.results.map((trip, index) => (
-              <tr key={trip.id}>
-                <td>{index + 1}</td>
-                <td>
-                  <img src={trip.master_image[0]} className='image-avatar' alt={trip.name} />
-                </td>
-                <td>{trip.name}</td>
-                <td>{new Date(trip.date).toISOString().split('T')[0]}</td>
-                <td>{trip.time}</td>
-                <td>{trip.salary}</td>
-                <td>
-                  <Link to={`update/${trip.id}`} className="header r-flex justify-content-between mb-5">
-                    <button className='btn btn-sm btn-info'>Update</button>
-                  </Link>
+    <tr key={trip.id}>
+      <td>{index + 1}</td>
+      <td>
+        {trip.master_image && trip.master_image.length > 0 && (
+          <img src={trip.master_image.split(',')[0]} className='image-avatar' alt={trip.name} />
+        )}
+      </td>
+      <td>{trip.name}</td>
+      <td>{new Date(trip.date).toISOString().split('T')[0]}</td>
+      <td>{trip.time}</td>
+      <td>{trip.salary}</td>
+      <td>
+        <Link to={`update/${trip.id}`} className="header r-flex justify-content-between mb-5">
+          <button className='btn btn-sm btn-info'>Update</button>
+        </Link>
+        <button onClick={() => handleDeleteTrip(trip.id)} className='btn btn-sm btn-danger mx-2'>Delete</button>
+      </td>
+    </tr>
+  ))}
 
-
-                  <button onClick={() => handleDeleteTrip(trip.id)} className='btn btn-sm btn-danger mx-2'>Delete</button>
-                </td>
-              </tr>
-            ))}
           </tbody>
         </Table>
       </div>
