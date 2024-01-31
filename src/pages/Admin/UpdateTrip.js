@@ -16,33 +16,24 @@ const Auth = getAuthUser();
 
 const UpdateTrip = () => {
     const [image, setImage] = useState(null);
-    const [url, setUrl] = useState("");
     const [loading, setLoading] = useState(false);
-    const [preview, setPreview] = useState(null);
     const [startDate, setStartDate] = useState(new Date());
     const [value, onChange] = useState('10:00');
     let {id}=useParams();
     const navigate = useNavigate();
 
     const [Post, setPost] = useState({
-        master_image: "",
         name: "",
         description: "",
         date: "",
         time: "",
         salary: "",
-        public_id:"",
         loading: false,
         err: []
     });
 
     const Do_Post = async (e) => {
       e.preventDefault();
-    
-      try {
-          const imageUrl = await uploadImage(); // Wait for image upload to complete
-    
-          if (imageUrl) {
               const Date = startDate.toISOString().split('T')[0]; // Correct date format
               const Time = value;
     
@@ -56,8 +47,6 @@ const UpdateTrip = () => {
                   time: Time,
                   salary: Post.salary,
                   description: Post.description,
-                  public_id:Post.public_id
-
               }
               ).then(resp => {
                   console.log(resp);
@@ -69,12 +58,6 @@ const UpdateTrip = () => {
                   setPost({ ...Post, loading: false, err: [errors.response.data.msg] });
                   console.log([errors.response.data.msg]);
               });
-          } else {
-              console.error("Image upload failed or master_image is empty.");
-          }
-      } catch (error) {
-          console.log(error);
-      }
     };
   
   const handleImageChange = (event) => {
@@ -94,39 +77,7 @@ const handleResetClick = () => {
     setImage(null); // Clear the image state when resetting
 };
 
-const uploadImage = async () => {
-    if (!image) {
-        console.error("No image to upload.");
-        return;
-    }
 
-    setLoading(true);
-    const data = new FormData();
-    data.append("file", image);
-    data.append("upload_preset", "Mondy_Magic"); // Using preset directly
-    data.append("cloud_name", "dfdjpb4g9"); // Using cloud name directly
-
-    try {
-        const response = await fetch(
-            `https://api.cloudinary.com/v1_1/dfdjpb4g9/image/upload`, // Using cloud name directly
-            {
-                method: "POST",
-                body: data,
-            }
-        );
-        const res = await response.json();
-        console.log(res);
-        Post.public_id=res.public_id
-        setUrl(res.secure_url);
-        setLoading(false);
-        return res.secure_url;
-    } catch (error) {
-        setLoading(false);
-        setPost({ ...Post, loading: false, err: [error.response.data.msg] });
-        console.log(error);
-        throw error;
-    }
-};
     return (
         <div>
             <h1>Update Trip</h1>
@@ -169,14 +120,6 @@ const uploadImage = async () => {
                         <div className="col-md-12">
                             <label className="text-black" htmlFor="Description">Trip Details</label>
                             <textarea required value={Post.description} onChange={(e) => setPost({ ...Post, description: e.target.value })} name="message" id="message" cols="30" rows="7" className="form-control" placeholder="Write Trip Details Here..."></textarea>
-                        </div>
-                    </div>
-
-                    <div className="row form-group">
-                        <div className="col-md-12">
-                            <label className="text-black" htmlFor="subject">Upload Destination Photo</label>
-                            <input required id="subject" type="file" className="form-control" onChange={handleImageChange} accept="image/*" />
-                            {preview && <img src={preview} alt="preview" className="img-fluid rounded" />}
                         </div>
                     </div>
 
