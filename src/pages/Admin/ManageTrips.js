@@ -80,7 +80,7 @@ const ManageTrips = () => {
               <tr key={trip.id}>
                 <td>{index + 1}</td>
                 <td>
-                  <img src={trip.master_image} className='image-avatar' alt={trip.name} />
+                  <img src={trip.master_image[0]} className='image-avatar' alt={trip.name} />
                 </td>
                 <td>{trip.name}</td>
                 <td>{new Date(trip.date).toISOString().split('T')[0]}</td>
