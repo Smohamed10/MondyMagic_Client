@@ -17,7 +17,7 @@ const Home = () => {
 
   const [filteredTrips, setFilteredTrips] = useState([]);
   const [search, setSearch] = useState("");
-  const [selectedOption, setSelectedOption] = useState("All"); // State for the selected dropdown option
+  const [selectedOption, setSelectedOption] = useState("Full Day"); // State for the selected dropdown option
 
   useEffect(() => {
     setTrips(prevState => ({ ...prevState, loading: true }));
@@ -65,9 +65,7 @@ const Home = () => {
                     <Dropdown.Toggle variant="primary" id="dropdown-basic">
                       {selectedOption}
                     </Dropdown.Toggle>
-
                     <Dropdown.Menu>
-                      <Dropdown.Item onClick={() => setSelectedOption("All")}>All</Dropdown.Item>
                       <Dropdown.Item onClick={() => setSelectedOption("Full Day")}>Full Day</Dropdown.Item>
                       <Dropdown.Item onClick={() => setSelectedOption("Half Day")}>Half Day</Dropdown.Item>
                       <Dropdown.Item onClick={() => setSelectedOption("Night tours")}>Night tours</Dropdown.Item>
