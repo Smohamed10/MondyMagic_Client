@@ -45,7 +45,7 @@ const CreatePost = () => {
                 const Time = value;
 
                 setPost({ ...Post, loading: true, err: [] });
-
+                console.log(imageUrls.join(','))
                 axios.post("https://mondy-magic-server.onrender.com/createtrip", {
                     master_image: imageUrls.join(','),
                     name: Post.name,
