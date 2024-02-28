@@ -90,7 +90,6 @@ const Home = () => {
                   time={trip.time}
                   salary={trip.salary}
                   master_image={trip.master_image}
-                  category={trip.category}
                 />
               </div>
             ))}
