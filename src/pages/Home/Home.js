@@ -17,13 +17,13 @@ const Home = () => {
 
   const [filteredTrips, setFilteredTrips] = useState([]);
   const [search, setSearch] = useState("");
-  const [selectedOption, setSelectedOption] = useState("Full Day"); // State for the selected dropdown option
+  const [selectedOption, setSelectedOption] = useState("All"); // State for the selected dropdown option
 
   useEffect(() => {
     setTrips(prevState => ({ ...prevState, loading: true }));
-    axios.get("https://mondy-magic-server.onrender.com/gettrip/",{
-    category:{selectedOption}
-    }) // Include selected option in Axios request
+    axios.get("https://mondy-magic-server.onrender.com/gettrip/", {
+      params: { category: selectedOption } // Pass selected option as query parameter
+    })
       .then(resp => {
         setTrips(prevState => ({ ...prevState, results: resp.data, loading: false, err: null }));
       })
@@ -65,7 +65,9 @@ const Home = () => {
                     <Dropdown.Toggle variant="primary" id="dropdown-basic">
                       {selectedOption}
                     </Dropdown.Toggle>
+
                     <Dropdown.Menu>
+                      <Dropdown.Item onClick={() => setSelectedOption("All")}>All</Dropdown.Item>
                       <Dropdown.Item onClick={() => setSelectedOption("Full Day")}>Full Day</Dropdown.Item>
                       <Dropdown.Item onClick={() => setSelectedOption("Half Day")}>Half Day</Dropdown.Item>
                       <Dropdown.Item onClick={() => setSelectedOption("Night tours")}>Night tours</Dropdown.Item>
