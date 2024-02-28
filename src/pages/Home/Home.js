@@ -31,7 +31,7 @@ const Home = () => {
       console.log(resp)
     })
     .catch(() => {
-      setTrips(prevState => ({ ...prevState, loading: false, err: 'Something Went Wrong' }));
+      setTrips(prevState => ({ ...prevState, loading: false, results: [], err: null }));
     });
 
   }, [trips.reload, selectedOption]); // Add selectedOption to the dependency array
@@ -54,36 +54,36 @@ const Home = () => {
           </div>
         )}
 
-        {trips.loading === false && trips.err === null && (
-          <div className="container">
-            <div className="row justify-content-center mb-5">
-              <div className="col-md-7 text-center">
-                <h2 className="font-weight-light text-black">Our Destinations</h2>
-                <p className="color-black-opacity-5">Choose Your Next Destination</p>
-                <Form>
-                  <Form.Group className="mb-3 d-flex" controlId="search">
-                    <Form.Control type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Your Next Trip" />
-                  </Form.Group>
-                  <Dropdown>
-                    <Dropdown.Toggle variant="primary" id="dropdown-basic">
-                      {selectedOption}
-                    </Dropdown.Toggle>
+        <div className="container">
+          <div className="row justify-content-center mb-5">
+            <div className="col-md-7 text-center">
+              <h2 className="font-weight-light text-black">Our Destinations</h2>
+              <p className="color-black-opacity-5">Choose Your Next Destination</p>
+              <Form>
+                <Form.Group className="mb-3 d-flex" controlId="search">
+                  <Form.Control type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Your Next Trip" />
+                </Form.Group>
+                <Dropdown>
+                  <Dropdown.Toggle variant="primary" id="dropdown-basic">
+                    {selectedOption}
+                  </Dropdown.Toggle>
 
-                    <Dropdown.Menu>
-                      <Dropdown.Item onClick={() => setSelectedOption("All")}>All</Dropdown.Item>
-                      <Dropdown.Item onClick={() => setSelectedOption("Full Day")}>Full Day</Dropdown.Item>
-                      <Dropdown.Item onClick={() => setSelectedOption("Half Day")}>Half Day</Dropdown.Item>
-                      <Dropdown.Item onClick={() => setSelectedOption("Night tours")}>Night tours</Dropdown.Item>
-                      <Dropdown.Item onClick={() => setSelectedOption("Packages")}>Packages</Dropdown.Item>
-                      <Dropdown.Item onClick={() => setSelectedOption("Special Offers")}>Special Offers</Dropdown.Item>
-                      <Dropdown.Item onClick={() => setSelectedOption("VIP")}>VIP</Dropdown.Item>
-                    </Dropdown.Menu>
-                  </Dropdown>
-                </Form>
-              </div>
+                  <Dropdown.Menu>
+                    <Dropdown.Item onClick={() => setSelectedOption("All")}>All</Dropdown.Item>
+                    <Dropdown.Item onClick={() => setSelectedOption("Full Day")}>Full Day</Dropdown.Item>
+                    <Dropdown.Item onClick={() => setSelectedOption("Half Day")}>Half Day</Dropdown.Item>
+                    <Dropdown.Item onClick={() => setSelectedOption("Night tours")}>Night tours</Dropdown.Item>
+                    <Dropdown.Item onClick={() => setSelectedOption("Packages")}>Packages</Dropdown.Item>
+                    <Dropdown.Item onClick={() => setSelectedOption("Special Offers")}>Special Offers</Dropdown.Item>
+                    <Dropdown.Item onClick={() => setSelectedOption("VIP")}>VIP</Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+              </Form>
             </div>
+          </div>
 
-            {filteredTrips.map((trip) => (
+          {filteredTrips.length > 0 ? (
+            filteredTrips.map((trip) => (
               <div className="row" key={trip.id}>
                 <Trips
                   id={trip.id}
@@ -95,16 +95,13 @@ const Home = () => {
                   master_image={trip.master_image}
                 />
               </div>
-            ))}
-          </div>
-        )}
-        {
-          trips.loading === false && trips.err != null && (
+            ))
+          ) : (
             <Alert variant='danger'>
               No Trips Available, Try Again Later
             </Alert>
-          )
-        }
+          )}
+        </div>
       </div>
     </div>
   );
