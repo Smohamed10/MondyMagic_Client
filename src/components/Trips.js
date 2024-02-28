@@ -5,6 +5,7 @@ import { getAuthUser } from '../Helper/Storage';
 
 import axios from 'axios';
 var Auth = getAuthUser();
+const carouselHeight = window.innerWidth < 768 ? "200px" : "400px";
 
 
 const Trips = (props) => {
@@ -65,18 +66,18 @@ const Trips = (props) => {
 
         <div className="row align-items-center">
           <div className="col-md-6 mb-5 mb-md-5">
-          <Carousel style={{ height: "400px", overflow: "hidden" }}>
-  {props.master_image.split(',').map((image, index) => (
-    <Carousel.Item key={index}>
-      <img
-        src={image}
-        className="d-block w-100"
-        style={{ objectFit: "cover", height: "100%", width: "100%" }}
-        alt={`Slide ${index + 1}`}
-      />
-    </Carousel.Item>
-  ))}
-</Carousel>
+          <Carousel style={{ maxHeight: carouselHeight, overflow: "hidden" }}>
+      {props.master_image.split(',').map((image, index) => (
+        <Carousel.Item key={index}>
+          <img
+            src={image}
+            className="d-block w-100"
+            style={{ objectFit: "cover", maxHeight: "100%", width: "100%" }}
+            alt={`Slide ${index + 1}`}
+          />
+        </Carousel.Item>
+      ))}
+    </Carousel>
           </div>
           <div className="col-md-6 pl-md-5">
             <h1 className="font-weight-light text-black mb-4">{props.name}</h1>
