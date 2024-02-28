@@ -9,6 +9,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import "../../Assets/css/spinner.css";
 import { getAuthUser } from '../../Helper/Storage';
 import { useNavigate } from "react-router-dom";
+import Dropdown from 'react-bootstrap/Dropdown'; // Import Dropdown component
 
 const Auth = getAuthUser();
 
@@ -18,6 +19,7 @@ const CreatePost = () => {
     const [startDate, setStartDate] = useState(new Date());
     const [value, onChange] = useState('10:00');
     const [preview, setPreview] = useState(null);
+    const [selectedCategory, setSelectedCategory] = useState("All"); // State for the selected dropdown option
     const navigate = useNavigate();
 
     const [Post, setPost] = useState({
@@ -51,7 +53,8 @@ const CreatePost = () => {
                     time: Time,
                     salary: Post.salary,
                     description: Post.description,
-                    public_id: publicIds.join(',')
+                    public_id: publicIds.join(','),
+                    category: selectedCategory // Include selected category in Axios request
                 },
                 ).then(resp => {
                     console.log(resp);
@@ -157,7 +160,27 @@ const CreatePost = () => {
                             <TimePicker required id="lname" className="form-control" onChange={onChange} value={value} />
                             <input type="hidden" name="time" value={value} />
                         </div>
+                    </div>
 
+                    <div className="row form-group">
+                        <div className="col-md-12">
+                            <label className="text-black" htmlFor="category">Category</label>
+                            <Dropdown>
+                                <Dropdown.Toggle variant="primary" id="dropdown-basic">
+                                    {selectedCategory}
+                                </Dropdown.Toggle>
+
+                                <Dropdown.Menu>
+                                    <Dropdown.Item onClick={() => setSelectedCategory("All")}>All</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => setSelectedCategory("Full Day")}>Full Day</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => setSelectedCategory("Half Day")}>Half Day</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => setSelectedCategory("Night tours")}>Night tours</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => setSelectedCategory("Packages")}>Packages</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => setSelectedCategory("Special Offers")}>Special Offers</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => setSelectedCategory("VIP")}>VIP</Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
+                        </div>
                     </div>
 
                     <div className="row form-group">
