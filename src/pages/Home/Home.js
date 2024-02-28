@@ -21,11 +21,12 @@ const Home = () => {
 
   useEffect(() => {
     setTrips(prevState => ({ ...prevState, loading: true }));
-    axios.get("https://mondy-magic-server.onrender.com/gettrip/", {
-       category: selectedOption  // Pass selected option as query parameter
+    axios.get("https://mondy-magic-server.onrender.com/gettrip", {
+       category:{selectedOption}  // Pass selected option as query parameter
     })
       .then(resp => {
         setTrips(prevState => ({ ...prevState, results: resp.data, loading: false, err: null }));
+        console.log(resp)
       })
       .catch(() => {
         setTrips(prevState => ({ ...prevState, loading: false, err: 'Something Went Wrong' }));
