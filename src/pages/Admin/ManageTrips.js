@@ -26,7 +26,11 @@ const ManageTrips = () => {
 
   useEffect(() => {
     setTrips((prevState) => ({ ...prevState, loading: true }));
-    axios.get("https://mondy-magic-server.onrender.com/gettrip")
+    axios.get("https://mondy-magic-server.onrender.com/gettrip",{
+      params: {
+        category: "All" // Pass selected option as query parameter
+      }
+    })
       .then((resp) => {
         setTrips((prevState) => ({ ...prevState, results: resp.data, loading: false, err: null }));
       })
