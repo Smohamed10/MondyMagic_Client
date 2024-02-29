@@ -55,7 +55,7 @@ const Home = () => {
         <Container>
           <Row className="justify-content-center mb-5">
             <Col md={7} className="text-center">
-              <img src={sphinx} alt="Sphinx" className="img-fluid mb-3" />
+              <img src={sphinx} alt="Sphinx" thumbnail className="img-fluid mb-3" />
               <h2 className="font-weight-light text-black">Our Destinations</h2>
               <p className="color-black-opacity-5">Choose Your Next Destination</p>
               <Form>
