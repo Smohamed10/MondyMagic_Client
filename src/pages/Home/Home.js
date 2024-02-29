@@ -6,7 +6,7 @@ import Alert from 'react-bootstrap/Alert';
 import Dropdown from 'react-bootstrap/Dropdown';
 import '../../Assets/css/spinner.css';
 import sphinx from "../../Images/sphinx.jpg";
-import { Container, Row, Col } from 'react-bootstrap'; // Import Container, Row, and Col from React Bootstrap
+import { Container, Row, Col } from 'react-bootstrap'; 
 
 const Home = () => {  
 
@@ -43,15 +43,6 @@ const Home = () => {
   return (
     <div className="site-wrap">
       <div className="site-section">
-        {trips.loading === true && (
-          <div className="loading-spinner-overlay">
-            <div className="loading-spinner-container">
-              <div className="loading-spinner">&#9765;</div>
-              <span>Loading...</span>
-            </div>
-          </div>
-        )}
-
         <Container>
           <Row className="justify-content-center mb-5">
             <Col md={7} className="text-center">
@@ -81,24 +72,35 @@ const Home = () => {
             </Col>
           </Row>
 
-          {filteredTrips.length > 0 ? (
-            filteredTrips.map((trip) => (
-              <Row key={trip.id}>
-                <Trips
-                  id={trip.id}
-                  name={trip.name}
-                  description={trip.description}
-                  date={trip.date}
-                  time={trip.time}
-                  salary={trip.salary}
-                  master_image={trip.master_image}
-                />
-              </Row>
-            ))
+          {trips.loading ? (
+            <div className="loading-spinner-overlay">
+              <div className="loading-spinner-container">
+                <div className="loading-spinner">&#9765;</div>
+                <span>Loading...</span>
+              </div>
+            </div>
           ) : (
-            <Alert variant='danger'>
-              No Trips Available, Try Again Later
-            </Alert>
+            <>
+              {filteredTrips.length > 0 ? (
+                filteredTrips.map((trip) => (
+                  <Row key={trip.id}>
+                    <Trips
+                      id={trip.id}
+                      name={trip.name}
+                      description={trip.description}
+                      date={trip.date}
+                      time={trip.time}
+                      salary={trip.salary}
+                      master_image={trip.master_image}
+                    />
+                  </Row>
+                ))
+              ) : (
+                <Alert variant='danger'>
+                  No Trips Available, Try Again Later
+                </Alert>
+              )}
+            </>
           )}
         </Container>
       </div>
