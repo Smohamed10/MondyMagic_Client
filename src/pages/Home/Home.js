@@ -3,9 +3,11 @@ import Trips from '../../components/Trips';
 import Form from 'react-bootstrap/Form';
 import axios from 'axios';
 import Alert from 'react-bootstrap/Alert';
-import Dropdown from 'react-bootstrap/Dropdown'; // Import Dropdown component
+import Dropdown from 'react-bootstrap/Dropdown';
 import '../../Assets/css/spinner.css';
 import sphinx from "../../Images/sphinx.jpg";
+import { Container, Row, Col } from 'react-bootstrap'; // Import Container, Row, and Col from React Bootstrap
+
 const Home = () => {  
 
   const [trips, setTrips] = useState({
@@ -17,27 +19,23 @@ const Home = () => {
 
   const [filteredTrips, setFilteredTrips] = useState([]);
   const [search, setSearch] = useState("");
-  const [selectedOption, setSelectedOption] = useState("All"); // State for the selected dropdown option
+  const [selectedOption, setSelectedOption] = useState("All");
 
   useEffect(() => {
     setTrips(prevState => ({ ...prevState, loading: true }));
     axios.get("https://mondy-magic-server.onrender.com/gettrip", {
-      params: {
-        category: selectedOption // Pass selected option as query parameter
-      }
+      params: { category: selectedOption }
     })
     .then(resp => {
       setTrips(prevState => ({ ...prevState, results: resp.data, loading: false, err: null }));
-      console.log(resp)
     })
     .catch(() => {
       setTrips(prevState => ({ ...prevState, loading: false, results: [], err: null }));
     });
 
-  }, [trips.reload, selectedOption]); // Add selectedOption to the dependency array
+  }, [trips.reload, selectedOption]);
 
   useEffect(() => {
-    // Filter trips based on the search input
     const filteredResults = trips.results.filter(trip => trip.name.toLowerCase().includes(search.toLowerCase()));
     setFilteredTrips(filteredResults);
   }, [search, trips.results]);
@@ -54,10 +52,10 @@ const Home = () => {
           </div>
         )}
 
-        <div className="container">
-        <img src={sphinx} alt="Sphinx" className="img-fluid mb-3" />
-          <div className="row justify-content-center mb-5">
-            <div className="col-md-7 text-center">
+        <Container>
+          <Row className="justify-content-center mb-5">
+            <Col md={7} className="text-center">
+              <img src={sphinx} alt="Sphinx" className="img-fluid mb-3" />
               <h2 className="font-weight-light text-black">Our Destinations</h2>
               <p className="color-black-opacity-5">Choose Your Next Destination</p>
               <Form>
@@ -80,12 +78,12 @@ const Home = () => {
                   </Dropdown.Menu>
                 </Dropdown>
               </Form>
-            </div>
-          </div>
+            </Col>
+          </Row>
 
           {filteredTrips.length > 0 ? (
             filteredTrips.map((trip) => (
-              <div className="row" key={trip.id}>
+              <Row key={trip.id}>
                 <Trips
                   id={trip.id}
                   name={trip.name}
@@ -95,14 +93,14 @@ const Home = () => {
                   salary={trip.salary}
                   master_image={trip.master_image}
                 />
-              </div>
+              </Row>
             ))
           ) : (
             <Alert variant='danger'>
               No Trips Available, Try Again Later
             </Alert>
           )}
-        </div>
+        </Container>
       </div>
     </div>
   );

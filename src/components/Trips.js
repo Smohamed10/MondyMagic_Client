@@ -29,18 +29,14 @@ const Trips = (props) => {
       navigate("/Login");
 
     }
-      console.log(Auth)
   };
 
   const handleConfirmBooking = () => {
-    console.log(props.id);
-    console.log(Auth[0].id);
     axios.post("https://mondy-magic-server.onrender.com/booking/"+Auth[0].id,{
       trip_id:props.id,
 
     })
       .then((resp) => {
-        console.log(resp)
         setShowModal(false);
         setBookingSuccess(true); // Set booking success to true
         setTimeout(() => setBookingSuccess(false), 5000); // Reset booking success after 5 seconds
