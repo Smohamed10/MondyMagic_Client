@@ -5,7 +5,7 @@ import axios from 'axios';
 import Alert from 'react-bootstrap/Alert';
 import Dropdown from 'react-bootstrap/Dropdown'; // Import Dropdown component
 import '../../Assets/css/spinner.css';
-
+import sphinx from "../../Images/sphinx.jpg";
 const Home = () => {  
 
   const [trips, setTrips] = useState({
@@ -55,6 +55,7 @@ const Home = () => {
         )}
 
         <div className="container">
+        <img src={sphinx} alt="Sphinx" className="img-fluid mb-3" />
           <div className="row justify-content-center mb-5">
             <div className="col-md-7 text-center">
               <h2 className="font-weight-light text-black">Our Destinations</h2>
