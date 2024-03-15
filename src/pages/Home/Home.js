@@ -40,7 +40,38 @@ const Home = () => {
     setFilteredTrips(filteredResults);
   }, [search, trips.results]);
 
-  return (            <div className="site-wrap">
+  return (
+    <div className="site-wrap">
+      <div className="site-section">
+        <Container>
+          <Row className="justify-content-center mb-5">
+            <Col md={7} className="text-center">
+              <img src={sphinx} alt="Sphinx" thumbnail className="img-fluid mb-3" />
+              <h2 className="font-weight-light text-black">Our Destinations</h2>
+              <p className="color-black-opacity-5">Choose Your Next Destination</p>
+              <Form>
+                <Form.Group className="mb-3 d-flex" controlId="search">
+                  <Form.Control type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Your Next Trip" />
+                </Form.Group>
+                <Dropdown>
+                  <Dropdown.Toggle variant="primary" id="dropdown-basic">
+                    {selectedOption}
+                  </Dropdown.Toggle>
+
+                  <Dropdown.Menu>
+                    <Dropdown.Item onClick={() => setSelectedOption("All")}>All</Dropdown.Item>
+                    <Dropdown.Item onClick={() => setSelectedOption("Full Day")}>Full Day</Dropdown.Item>
+                    <Dropdown.Item onClick={() => setSelectedOption("Half Day")}>Half Day</Dropdown.Item>
+                    <Dropdown.Item onClick={() => setSelectedOption("Night tours")}>Night tours</Dropdown.Item>
+                    <Dropdown.Item onClick={() => setSelectedOption("Packages")}>Packages</Dropdown.Item>
+                    <Dropdown.Item onClick={() => setSelectedOption("Special Offers")}>Special Offers</Dropdown.Item>
+                    <Dropdown.Item onClick={() => setSelectedOption("VIP")}>VIP</Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+              </Form>
+            </Col>
+          </Row>
+
           {trips.loading ? (
             <div className="loading-spinner-overlay">
               <div className="loading-spinner-container">
@@ -50,37 +81,6 @@ const Home = () => {
             </div>
           ) : (
             <>
-
-            <div className="site-section">
-              <Container>
-                <Row className="justify-content-center mb-5">
-                  <Col md={7} className="text-center">
-                    <img src={sphinx} alt="Sphinx" thumbnail className="img-fluid mb-3" />
-                    <h2 className="font-weight-light text-black">Our Destinations</h2>
-                    <p className="color-black-opacity-5">Choose Your Next Destination</p>
-                    <Form>
-                      <Form.Group className="mb-3 d-flex" controlId="search">
-                        <Form.Control type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Your Next Trip" />
-                      </Form.Group>
-                      <Dropdown>
-                        <Dropdown.Toggle variant="primary" id="dropdown-basic">
-                          {selectedOption}
-                        </Dropdown.Toggle>
-      
-                        <Dropdown.Menu>
-                          <Dropdown.Item onClick={() => setSelectedOption("All")}>All</Dropdown.Item>
-                          <Dropdown.Item onClick={() => setSelectedOption("Full Day")}>Full Day</Dropdown.Item>
-                          <Dropdown.Item onClick={() => setSelectedOption("Half Day")}>Half Day</Dropdown.Item>
-                          <Dropdown.Item onClick={() => setSelectedOption("Night tours")}>Night tours</Dropdown.Item>
-                          <Dropdown.Item onClick={() => setSelectedOption("Packages")}>Packages</Dropdown.Item>
-                          <Dropdown.Item onClick={() => setSelectedOption("Special Offers")}>Special Offers</Dropdown.Item>
-                          <Dropdown.Item onClick={() => setSelectedOption("VIP")}>VIP</Dropdown.Item>
-                        </Dropdown.Menu>
-                      </Dropdown>
-                    </Form>
-                  </Col>
-                </Row>
-      
               {filteredTrips.length > 0 ? (
                 filteredTrips.map((trip) => (
                   <Row key={trip.id}>
@@ -99,11 +99,11 @@ const Home = () => {
                 <Alert variant='danger'>
                   No Trips Available, Try Again Later
                 </Alert>
-              )}        </Container>
-      </div>
+              )}
             </>
           )}
-
+        </Container>
+      </div>
     </div>
   );
 };

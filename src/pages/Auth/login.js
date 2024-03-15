@@ -28,7 +28,9 @@ const Login = () => {
             setAuthUser (resp.data);           
             navigate(`/`); 
         }).catch((errors) => {
+            console.log(errors);
             setLoginData({ ...loginData, loading: false, err: [errors.response.data.msg] });
+            console.log([errors.response.data.msg]);
         });
         console.log(loginData.err);
     };
