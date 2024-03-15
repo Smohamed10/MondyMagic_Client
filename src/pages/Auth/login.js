@@ -24,7 +24,6 @@ const Login = () => {
             email: loginData.email,
             password: loginData.password,
         }).then(resp => {
-            console.log(resp)
             setLoginData({ ...loginData, loading: false, err: [] });
             setAuthUser (resp.data);           
             navigate(`/`); 
